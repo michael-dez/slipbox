@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slipbox</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f0f1a;
+      color: #ddd;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── Search bar ── */
+    #search-bar {
+      position: absolute;
+      top: 18px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      z-index: 20;
+    }
+
+    #search {
+      width: 340px;
+      padding: 9px 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(18, 18, 36, 0.92);
+      color: #eee;
+      font-size: 14px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s;
+    }
+
+    #search:focus { border-color: rgba(255, 255, 255, 0.4); }
+    #search::placeholder { color: #555; }
+
+    /* ── Graph canvas ── */
+    svg { display: block; cursor: grab; }
+    svg:active { cursor: grabbing; }
+
+    .link {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.18);
+      stroke-width: 1.5;
+    }
+
+    .link.dimmed     { stroke: rgba(255, 255, 255, 0.04); }
+    .link.highlighted { stroke: rgba(255, 255, 255, 0.65); stroke-width: 2; }
+
+    .node-circle {
+      stroke: rgba(255, 255, 255, 0.25);
+      stroke-width: 1.5;
+      cursor: pointer;
+    }
+
+    .node-circle:hover { stroke: #fff; stroke-width: 2.5; }
+
+    .node-label {
+      font-size: 10px;
+      fill: rgba(210, 210, 230, 0.7);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .node.dimmed .node-circle { opacity: 0.1; }
+    .node.dimmed .node-label  { opacity: 0.08; }
+    .node.highlighted .node-circle { stroke: #fff; stroke-width: 2.5; }
+
+    /* ── Tooltip ── */
+    #tooltip {
+      position: absolute;
+      background: rgba(10, 10, 25, 0.93);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      line-height: 1.65;
+      pointer-events: none;
+      display: none;
+      max-width: 250px;
+      backdrop-filter: blur(8px);
+    }
+
+    #tooltip strong { color: #fff; display: block; margin-bottom: 2px; }
+    #tooltip .date  { color: #777; font-size: 11px; }
+    #tooltip .tags  { color: #999; font-size: 11px; margin-top: 5px; }
+    #tooltip .hint  { color: #445; font-size: 10px; margin-top: 6px; font-style: italic; }
+
+    /* ── Legend ── */
+    #legend {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 11px;
+      color: #666;
+      pointer-events: none;
+    }
+
+    .legend-label { margin-bottom: 4px; }
+
+    .legend-grad {
+      width: 120px;
+      height: 7px;
+      border-radius: 4px;
+      /* red → orange → yellow → green → blue → violet through full HSL spectrum */
+      background: linear-gradient(
+        to right,
+        hsl(0,80%,55%),
+        hsl(54,80%,55%),
+        hsl(108,80%,55%),
+        hsl(162,80%,55%),
+        hsl(216,80%,55%),
+        hsl(270,80%,55%)
+      );
+      margin-bottom: 4px;
+    }
+
+    .legend-caps {
+      display: flex;
+      justify-content: space-between;
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="search-bar">
+    <input id="search" type="text" placeholder="Search titles or tags…"
+           autocomplete="off" spellcheck="false" />
+  </div>
+
+  <div id="tooltip"></div>
+
+  <div id="legend">
+    <div class="legend-label">connections →</div>
+    <div class="legend-grad"></div>
+    <div class="legend-caps"><span>0</span><span>most</span></div>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    const NODE_R = 8; // node circle radius (px)
+
+    fetch("graph.json")
+      .then(r => r.json())
+      .then(render);
+
+    function render(data) {
+      let W = window.innerWidth;
+      let H = window.innerHeight;
+
+      // ── Degree count (total connections per node) ──────────────────────────
+      const deg = {};
+      data.nodes.forEach(n => (deg[n.id] = 0));
+      data.links.forEach(l => {
+        deg[l.source] = (deg[l.source] || 0) + 1;
+        deg[l.target] = (deg[l.target] || 0) + 1;
+      });
+      const maxDeg = Math.max(1, ...Object.values(deg));
+
+      // Red (hue 0°) → Violet (hue 270°) via HSL
+      const nodeColor = id => {
+        const t = deg[id] / maxDeg;
+        return `hsl(${Math.round(t * 270)},80%,55%)`;
+      };
+
+      // ── SVG & zoom ────────────────────────────────────────────────────────
+      const svg = d3.select("body").append("svg")
+        .attr("width", W)
+        .attr("height", H);
+
+      const zoom = d3.zoom()
+        .scaleExtent([0.05, 10])
+        .on("zoom", ({ transform }) => g.attr("transform", transform));
+
+      svg.call(zoom);
+
+      const g = svg.append("g");
+
+      // ── Arrow marker ──────────────────────────────────────────────────────
+      // viewBox: x goes 0→8, y goes -4→4; tip of triangle at (8,0) = refX
+      svg.append("defs").append("marker")
+        .attr("id", "arrow")
+        .attr("viewBox", "0 -4 8 8")
+        .attr("refX", 8)
+        .attr("refY", 0)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M0,-4L8,0L0,4Z")
+        .attr("fill", "rgba(255,255,255,0.35)");
+
+      // ── Force simulation ──────────────────────────────────────────────────
+      const sim = d3.forceSimulation(data.nodes)
+        .force("link",
+          d3.forceLink(data.links).id(d => d.id).distance(130))
+        .force("charge", d3.forceManyBody().strength(-380))
+        .force("center", d3.forceCenter(W / 2, H / 2))
+        .force("collide", d3.forceCollide(NODE_R + 6));
+
+      // ── Links ─────────────────────────────────────────────────────────────
+      const linkSel = g.append("g")
+        .selectAll("line")
+        .data(data.links)
+        .join("line")
+        .attr("class", "link")
+        .attr("marker-end", "url(#arrow)");
+
+      // ── Nodes ─────────────────────────────────────────────────────────────
+      const nodeSel = g.append("g")
+        .selectAll("g")
+        .data(data.nodes)
+        .join("g")
+        .attr("class", "node")
+        .call(
+          d3.drag()
+            .on("start", (e, d) => {
+              if (!e.active) sim.alphaTarget(0.3).restart();
+              d.fx = d.x; d.fy = d.y;
+              d._dragged = false;
+            })
+            .on("drag",  (e, d) => { d.fx = e.x; d.fy = e.y; d._dragged = true; })
+            .on("end",   (e, d) => {
+              if (!e.active) sim.alphaTarget(0);
+              d.fx = null; d.fy = null;
+            })
+        );
+
+      nodeSel.append("circle")
+        .attr("class", "node-circle")
+        .attr("r", NODE_R)
+        .attr("fill", d => nodeColor(d.id));
+
+      nodeSel.append("text")
+        .attr("class", "node-label")
+        .attr("x", NODE_R + 5)
+        .attr("dy", "0.35em")
+        .text(d => d.title.length > 30 ? d.title.slice(0, 29) + "…" : d.title);
+
+      // ── Tooltip ───────────────────────────────────────────────────────────
+      const tooltip = d3.select("#tooltip");
+
+      nodeSel
+        .on("mouseover", (_, d) => {
+          const tags = d.tags.length ? d.tags.join(", ") : "—";
+          tooltip
+            .style("display", "block")
+            .html(
+              `<strong>${d.title}</strong>` +
+              `<span class="date">${d.date || "no date"}</span>` +
+              `<span class="tags">🏷 ${tags}</span>` +
+              `<span class="hint">click to open note</span>`
+            );
+        })
+        .on("mousemove", ev => {
+          tooltip
+            .style("left",  (ev.pageX + 16) + "px")
+            .style("top",   (ev.pageY - 12) + "px");
+        })
+        .on("mouseout", () => tooltip.style("display", "none"))
+        .on("click", (_, d) => {
+          if (d._dragged) { d._dragged = false; return; }
+          window.open(`notes/${d.id}.html`, "_blank");
+        });
+
+      // ── Tick ──────────────────────────────────────────────────────────────
+      sim.on("tick", () => {
+        // Shorten each end of a link to the node boundary so the arrow is
+        // visible and doesn't overlap the circle.
+        linkSel
+          .attr("x1", d => {
+            const { ux } = unitVec(d);
+            return d.source.x + ux * NODE_R;
+          })
+          .attr("y1", d => {
+            const { uy } = unitVec(d);
+            return d.source.y + uy * NODE_R;
+          })
+          .attr("x2", d => {
+            const { ux } = unitVec(d);
+            return d.target.x - ux * NODE_R;
+          })
+          .attr("y2", d => {
+            const { uy } = unitVec(d);
+            return d.target.y - uy * NODE_R;
+          });
+
+        nodeSel.attr("transform", d => `translate(${d.x},${d.y})`);
+      });
+
+      // ── Search ────────────────────────────────────────────────────────────
+      d3.select("#search").on("input", function () {
+        const q = this.value.trim().toLowerCase();
+
+        if (!q) {
+          nodeSel.classed("dimmed", false).classed("highlighted", false);
+          linkSel.classed("dimmed", false).classed("highlighted", false);
+          return;
+        }
+
+        const titleHits = [];
+        const matched = new Set();
+
+        data.nodes.forEach(n => {
+          const byTitle = n.title.toLowerCase().includes(q);
+          const byTag   = n.tags.some(t => t.toLowerCase().includes(q));
+          if (byTitle) titleHits.push(n.id);
+          if (byTitle || byTag) matched.add(n.id);
+        });
+
+        nodeSel.classed("dimmed",      d => !matched.has(d.id));
+        nodeSel.classed("highlighted", d =>  matched.has(d.id));
+
+        linkSel.classed("dimmed", d => {
+          const sid = nodeId(d.source);
+          const tid = nodeId(d.target);
+          return !matched.has(sid) && !matched.has(tid);
+        });
+
+        // Pan & zoom to a single exact title match
+        if (titleHits.length === 1) {
+          const hit = data.nodes.find(n => n.id === titleHits[0]);
+          if (hit && hit.x != null) focusNode(hit, W, H, svg, zoom);
+        }
+      });
+
+      // ── Resize ────────────────────────────────────────────────────────────
+      window.addEventListener("resize", () => {
+        W = window.innerWidth; H = window.innerHeight;
+        svg.attr("width", W).attr("height", H);
+        sim.force("center", d3.forceCenter(W / 2, H / 2)).alpha(0.3).restart();
+      });
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+
+    function unitVec(d) {
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const len = Math.sqrt(dx * dx + dy * dy) || 1;
+      return { ux: dx / len, uy: dy / len };
+    }
+
+    function nodeId(n) {
+      return typeof n === "object" ? n.id : n;
+    }
+
+    function focusNode(node, W, H, svg, zoom) {
+      svg.transition().duration(750).call(
+        zoom.transform,
+        d3.zoomIdentity
+          .translate(W / 2, H / 2)
+          .scale(2.5)
+          .translate(-node.x, -node.y)
+      );
+    }
+  </script>
+</body>
+</html>

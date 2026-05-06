@@ -1,0 +1,181 @@
+{
+  "nodes": [
+    {
+      "id": "3k2e",
+      "title": "Dell Poweredge R620 Startup Options",
+      "date": "2022-11-23",
+      "tags": [
+        "homelab",
+        "poweredge",
+        "dell",
+        "os",
+        "hardware",
+        "TODO"
+      ]
+    },
+    {
+      "id": "66tm",
+      "title": "The Go cli",
+      "date": "2023-01-24",
+      "tags": [
+        "golang",
+        "go-cli",
+        "cli"
+      ]
+    },
+    {
+      "id": "90ws",
+      "title": "Go Variable Declaration and Initialization",
+      "date": "2022-11-15",
+      "tags": [
+        "golang",
+        "the-go-programming-language-book",
+        "variables"
+      ]
+    },
+    {
+      "id": "g7jj",
+      "title": "Go Packages",
+      "date": "2022-11-14",
+      "tags": [
+        "golang",
+        "go-packages",
+        "the-go-programming-language-book"
+      ]
+    },
+    {
+      "id": "gqvt",
+      "title": "How I Take Notes",
+      "date": "2023-05-07",
+      "tags": [
+        "meta",
+        "zettlekasten",
+        "zk"
+      ]
+    },
+    {
+      "id": "h0l9",
+      "title": "Taskwarrior - Blocking Tasks",
+      "date": "2022-11-15",
+      "tags": [
+        "taskwarrior",
+        "tasks",
+        "blocking"
+      ]
+    },
+    {
+      "id": "h366",
+      "title": "Initialize a Go Project",
+      "date": "2023-07-03",
+      "tags": [
+        "golang",
+        "go-cli",
+        "go-mod-init",
+        "init"
+      ]
+    },
+    {
+      "id": "itys",
+      "title": "Configuring apt Sources",
+      "date": "2022-11-30",
+      "tags": [
+        "homelab",
+        "proxmox",
+        "debian",
+        "ubuntu",
+        "apt",
+        "sources",
+        "sourceslist",
+        "repositories",
+        "configure"
+      ]
+    },
+    {
+      "id": "iy7j",
+      "title": "Go For Loops",
+      "date": "2022-11-15",
+      "tags": [
+        "golang",
+        "the-go-programming-language-book",
+        "looping",
+        "loops"
+      ]
+    },
+    {
+      "id": "kcm0",
+      "title": "Proxmox User Management",
+      "date": "2022-11-30",
+      "tags": [
+        "proxmox",
+        "terraform",
+        "user-management",
+        "permissions",
+        "pveum"
+      ]
+    },
+    {
+      "id": "m0bk",
+      "title": "Dell Poweredge Lifecycle Controller",
+      "date": "2022-11-23",
+      "tags": [
+        "poweredge",
+        "os",
+        "dell",
+        "lifecycle-controller"
+      ]
+    },
+    {
+      "id": "nuwc",
+      "title": "Ansible",
+      "date": "2023-05-23",
+      "tags": []
+    },
+    {
+      "id": "o0rk",
+      "title": "Find and Replace",
+      "date": "2023-05-22",
+      "tags": [
+        "bash",
+        "sed",
+        "find"
+      ]
+    },
+    {
+      "id": "r85f",
+      "title": "The rsync Utility",
+      "date": "2023-06-27",
+      "tags": [
+        "rsync",
+        "cli",
+        "backup"
+      ]
+    },
+    {
+      "id": "raxj",
+      "title": "Go Function Declarations",
+      "date": "2022-11-15",
+      "tags": [
+        "golang",
+        "the-go-programming-language-book",
+        "functions",
+        "declaration"
+      ]
+    },
+    {
+      "id": "wxsi",
+      "title": "Go Comments",
+      "date": "2022-11-15",
+      "tags": [
+        "golang",
+        "the-go-programming-language-book",
+        "comments"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "3k2e",
+      "target": "m0bk"
+    }
+  ]
+}
