@@ -218,16 +218,35 @@ def build_graph() -> None:
         if note:
             notes[note["id"]] = note
 
-    nodes = [
-        {"id": n["id"], "title": n["title"], "date": n["date"], "tags": n["tags"]}
+    nodes: list[dict] = [
+        {
+            "id": n["id"],
+            "title": n["title"],
+            "date": n["date"],
+            "tags": n["tags"],
+            "type": "note",
+        }
         for n in notes.values()
     ]
+
+    # Synthesize a node per unique tag for the optional "show tags" view.
+    # Tag node ids use a "tag:" prefix so they cannot collide with note ids
+    # (4-char alphanumeric — no colon).
+    unique_tags = sorted({t for n in notes.values() for t in n["tags"]})
+    for tag in unique_tags:
+        nodes.append({
+            "id": f"tag:{tag}",
+            "title": f"#{tag}",
+            "date": "",
+            "tags": [],
+            "type": "tag",
+        })
 
     # Build directed links that follow the actual authoring direction:
     # if note A contains a link to note B, the edge goes A → B.
     # Both A→B and B→A are kept if they exist independently.
     seen: set[tuple[str, str]] = set()
-    links = []
+    links: list[dict] = []
     for note_id, note in notes.items():
         for target_id in note["links"]:
             if target_id not in notes:
@@ -236,7 +255,16 @@ def build_graph() -> None:
             if pair in seen:
                 continue
             seen.add(pair)
-            links.append({"source": note_id, "target": target_id})
+            links.append({"source": note_id, "target": target_id, "type": "note"})
+
+    # note → tag membership edges
+    for note_id, note in notes.items():
+        for tag in note["tags"]:
+            links.append({
+                "source": note_id,
+                "target": f"tag:{tag}",
+                "type": "tag",
+            })
 
     DOCS_DIR.mkdir(exist_ok=True)
     NOTES_DIR.mkdir(exist_ok=True)

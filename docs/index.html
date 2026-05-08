@@ -41,6 +41,24 @@
     #search:focus { border-color: rgba(255, 255, 255, 0.4); }
     #search::placeholder { color: #555; }
 
+    #toggle-tags {
+      margin-left: 10px;
+      padding: 9px 16px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(18, 18, 36, 0.92);
+      color: #ccc;
+      font-size: 13px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    #toggle-tags:hover { border-color: rgba(255, 255, 255, 0.4); color: #eee; }
+    #toggle-tags.active {
+      color: hsl(40, 70%, 70%);
+      border-color: hsl(40, 70%, 50%);
+    }
+
     /* ── Graph canvas ── */
     svg { display: block; cursor: grab; }
     svg:active { cursor: grabbing; }
@@ -72,6 +90,20 @@
     .node.dimmed .node-circle { opacity: 0.1; }
     .node.dimmed .node-label  { opacity: 0.08; }
     .node.highlighted .node-circle { stroke: #fff; stroke-width: 2.5; }
+
+    .tag-node .node-circle {
+      stroke: rgba(220, 180, 100, 0.55);
+      stroke-dasharray: 2 2;
+    }
+    .tag-node .node-label {
+      fill: rgba(220, 180, 100, 0.8);
+      font-style: italic;
+    }
+    .link.tag-link {
+      stroke: rgba(220, 180, 100, 0.13);
+      stroke-dasharray: 3 3;
+    }
+    .link.tag-link.highlighted { stroke: rgba(220, 180, 100, 0.55); }
 
     /* ── Tooltip ── */
     #tooltip {
@@ -134,6 +166,7 @@
   <div id="search-bar">
     <input id="search" type="text" placeholder="Search titles or tags…"
            autocomplete="off" spellcheck="false" />
+    <button id="toggle-tags" type="button">Show tags</button>
   </div>
 
   <div id="tooltip"></div>
@@ -146,7 +179,8 @@
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script>
-    const NODE_R = 8; // node circle radius (px)
+    const NOTE_R = 8;
+    const TAG_R  = 6;
 
     fetch("graph.json")
       .then(r => r.json())
@@ -155,23 +189,8 @@
     function render(data) {
       let W = window.innerWidth;
       let H = window.innerHeight;
+      let showTags = false;
 
-      // ── Degree count (total connections per node) ──────────────────────────
-      const deg = {};
-      data.nodes.forEach(n => (deg[n.id] = 0));
-      data.links.forEach(l => {
-        deg[l.source] = (deg[l.source] || 0) + 1;
-        deg[l.target] = (deg[l.target] || 0) + 1;
-      });
-      const maxDeg = Math.max(1, ...Object.values(deg));
-
-      // Red (hue 0°) → Violet (hue 270°) via HSL
-      const nodeColor = id => {
-        const t = deg[id] / maxDeg;
-        return `hsl(${Math.round(t * 270)},80%,55%)`;
-      };
-
-      // ── SVG & zoom ────────────────────────────────────────────────────────
       const svg = d3.select("body").append("svg")
         .attr("width", W)
         .attr("height", H);
@@ -181,10 +200,8 @@
         .on("zoom", ({ transform }) => g.attr("transform", transform));
 
       svg.call(zoom);
-
       const g = svg.append("g");
 
-      // ── Arrow marker ──────────────────────────────────────────────────────
       // viewBox: x goes 0→8, y goes -4→4; tip of triangle at (8,0) = refX
       svg.append("defs").append("marker")
         .attr("id", "arrow")
@@ -198,105 +215,157 @@
         .attr("d", "M0,-4L8,0L0,4Z")
         .attr("fill", "rgba(255,255,255,0.35)");
 
-      // ── Force simulation ──────────────────────────────────────────────────
-      const sim = d3.forceSimulation(data.nodes)
+      // Tag edges get a longer, weaker spring so high-degree tag hubs don't
+      // collapse the whole graph onto themselves.
+      const sim = d3.forceSimulation()
         .force("link",
-          d3.forceLink(data.links).id(d => d.id).distance(130))
+          d3.forceLink().id(d => d.id)
+            .distance(l => l.type === "tag" ? 180 : 130)
+            .strength(l => l.type === "tag" ? 0.18 : null))
         .force("charge", d3.forceManyBody().strength(-380))
         .force("center", d3.forceCenter(W / 2, H / 2))
-        .force("collide", d3.forceCollide(NODE_R + 6));
+        .force("collide", d3.forceCollide(NOTE_R + 6));
 
-      // ── Links ─────────────────────────────────────────────────────────────
-      const linkSel = g.append("g")
-        .selectAll("line")
-        .data(data.links)
-        .join("line")
-        .attr("class", "link")
-        .attr("marker-end", "url(#arrow)");
+      const linkLayer = g.append("g");
+      const nodeLayer = g.append("g");
+      let linkSel = linkLayer.selectAll("line");
+      let nodeSel = nodeLayer.selectAll("g.node");
 
-      // ── Nodes ─────────────────────────────────────────────────────────────
-      const nodeSel = g.append("g")
-        .selectAll("g")
-        .data(data.nodes)
-        .join("g")
-        .attr("class", "node")
-        .call(
-          d3.drag()
-            .on("start", (e, d) => {
-              if (!e.active) sim.alphaTarget(0.3).restart();
-              d.fx = d.x; d.fy = d.y;
-              d._dragged = false;
-            })
-            .on("drag",  (e, d) => { d.fx = e.x; d.fy = e.y; d._dragged = true; })
-            .on("end",   (e, d) => {
-              if (!e.active) sim.alphaTarget(0);
-              d.fx = null; d.fy = null;
-            })
-        );
+      let visibleNodes = [];
+      let visibleLinks = [];
+      let deg = {};
+      let maxDeg = 1;
 
-      nodeSel.append("circle")
-        .attr("class", "node-circle")
-        .attr("r", NODE_R)
-        .attr("fill", d => nodeColor(d.id));
-
-      nodeSel.append("text")
-        .attr("class", "node-label")
-        .attr("x", NODE_R + 5)
-        .attr("dy", "0.35em")
-        .text(d => d.title.length > 30 ? d.title.slice(0, 29) + "…" : d.title);
-
-      // ── Tooltip ───────────────────────────────────────────────────────────
       const tooltip = d3.select("#tooltip");
 
-      nodeSel
-        .on("mouseover", (_, d) => {
-          const tags = d.tags.length ? d.tags.join(", ") : "—";
-          tooltip
-            .style("display", "block")
-            .html(
-              `<strong>${d.title}</strong>` +
-              `<span class="date">${d.date || "no date"}</span>` +
-              `<span class="tags">🏷 ${tags}</span>` +
-              `<span class="hint">click to open note</span>`
-            );
-        })
-        .on("mousemove", ev => {
-          tooltip
-            .style("left",  (ev.pageX + 16) + "px")
-            .style("top",   (ev.pageY - 12) + "px");
-        })
-        .on("mouseout", () => tooltip.style("display", "none"))
-        .on("click", (_, d) => {
-          if (d._dragged) { d._dragged = false; return; }
-          window.open(`notes/${d.id}.html`, "_blank");
-        });
+      const radiusOf = d => d.type === "tag" ? TAG_R : NOTE_R;
 
-      // ── Tick ──────────────────────────────────────────────────────────────
-      sim.on("tick", () => {
-        // Shorten each end of a link to the node boundary so the arrow is
-        // visible and doesn't overlap the circle.
-        linkSel
-          .attr("x1", d => {
-            const { ux } = unitVec(d);
-            return d.source.x + ux * NODE_R;
-          })
-          .attr("y1", d => {
-            const { uy } = unitVec(d);
-            return d.source.y + uy * NODE_R;
-          })
-          .attr("x2", d => {
-            const { ux } = unitVec(d);
-            return d.target.x - ux * NODE_R;
-          })
-          .attr("y2", d => {
-            const { uy } = unitVec(d);
-            return d.target.y - uy * NODE_R;
+      // Red (hue 0°) → Violet (hue 270°) for notes; tags use a fixed warm hue.
+      const colorOf = d => {
+        if (d.type === "tag") return "hsl(40, 70%, 60%)";
+        const t = (deg[d.id] || 0) / maxDeg;
+        return `hsl(${Math.round(t * 270)},80%,55%)`;
+      };
+
+      function update() {
+        visibleNodes = showTags
+          ? data.nodes
+          : data.nodes.filter(n => n.type !== "tag");
+        const visibleIds = new Set(visibleNodes.map(n => n.id));
+        visibleLinks = data.links.filter(l =>
+          visibleIds.has(nodeId(l.source)) && visibleIds.has(nodeId(l.target))
+        );
+
+        // Note color is keyed off note↔note degree only; tag edges are
+        // excluded so they don't shift every note toward violet.
+        deg = {};
+        visibleNodes.forEach(n => (deg[n.id] = 0));
+        visibleLinks.forEach(l => {
+          if (l.type === "tag") return;
+          const sid = nodeId(l.source);
+          const tid = nodeId(l.target);
+          deg[sid] = (deg[sid] || 0) + 1;
+          deg[tid] = (deg[tid] || 0) + 1;
+        });
+        maxDeg = Math.max(1, ...Object.values(deg));
+
+        linkSel = linkLayer.selectAll("line")
+          .data(visibleLinks, d => `${nodeId(d.source)}->${nodeId(d.target)}`)
+          .join("line")
+          .attr("class", d => "link" + (d.type === "tag" ? " tag-link" : ""))
+          .attr("marker-end", d => d.type === "tag" ? null : "url(#arrow)");
+
+        nodeSel = nodeLayer.selectAll("g.node")
+          .data(visibleNodes, d => d.id)
+          .join(enter => {
+            const ng = enter.append("g")
+              .attr("class", d => "node" + (d.type === "tag" ? " tag-node" : ""))
+              .call(
+                d3.drag()
+                  .on("start", (e, d) => {
+                    if (!e.active) sim.alphaTarget(0.3).restart();
+                    d.fx = d.x; d.fy = d.y;
+                    d._dragged = false;
+                  })
+                  .on("drag",  (e, d) => { d.fx = e.x; d.fy = e.y; d._dragged = true; })
+                  .on("end",   (e, d) => {
+                    if (!e.active) sim.alphaTarget(0);
+                    d.fx = null; d.fy = null;
+                  })
+              )
+              .on("mouseover", (_, d) => {
+                if (d.type === "tag") {
+                  tooltip.style("display", "block").html(
+                    `<strong>${d.title}</strong>` +
+                    `<span class="hint">click to filter notes by this tag</span>`
+                  );
+                } else {
+                  const tags = d.tags.length ? d.tags.join(", ") : "—";
+                  tooltip.style("display", "block").html(
+                    `<strong>${d.title}</strong>` +
+                    `<span class="date">${d.date || "no date"}</span>` +
+                    `<span class="tags">🏷 ${tags}</span>` +
+                    `<span class="hint">click to open note</span>`
+                  );
+                }
+              })
+              .on("mousemove", ev => {
+                tooltip
+                  .style("left", (ev.pageX + 16) + "px")
+                  .style("top",  (ev.pageY - 12) + "px");
+              })
+              .on("mouseout", () => tooltip.style("display", "none"))
+              .on("click", (_, d) => {
+                if (d._dragged) { d._dragged = false; return; }
+                if (d.type === "tag") {
+                  const tagName = d.id.replace(/^tag:/, "");
+                  const input = document.getElementById("search");
+                  input.value = tagName;
+                  input.dispatchEvent(new Event("input"));
+                  return;
+                }
+                window.open(`notes/${d.id}.html`, "_blank");
+              });
+
+            ng.append("circle").attr("class", "node-circle");
+            ng.append("text").attr("class", "node-label").attr("dy", "0.35em");
+            return ng;
           });
+
+        nodeSel.select(".node-circle")
+          .attr("r", radiusOf)
+          .attr("fill", colorOf);
+
+        nodeSel.select(".node-label")
+          .attr("x", d => radiusOf(d) + 5)
+          .text(d => d.title.length > 30 ? d.title.slice(0, 29) + "…" : d.title);
+
+        sim.nodes(visibleNodes);
+        sim.force("link").links(visibleLinks);
+        sim.alpha(0.6).restart();
+      }
+
+      // Shorten each end of a link to the node boundary so the arrow is
+      // visible and doesn't overlap the circle.
+      sim.on("tick", () => {
+        linkSel
+          .attr("x1", d => d.source.x + unitVec(d).ux * radiusOf(d.source))
+          .attr("y1", d => d.source.y + unitVec(d).uy * radiusOf(d.source))
+          .attr("x2", d => d.target.x - unitVec(d).ux * radiusOf(d.target))
+          .attr("y2", d => d.target.y - unitVec(d).uy * radiusOf(d.target));
 
         nodeSel.attr("transform", d => `translate(${d.x},${d.y})`);
       });
 
-      // ── Search ────────────────────────────────────────────────────────────
+      update();
+
+      d3.select("#toggle-tags").on("click", function () {
+        showTags = !showTags;
+        this.textContent = showTags ? "Hide tags" : "Show tags";
+        this.classList.toggle("active", showTags);
+        update();
+      });
+
       d3.select("#search").on("input", function () {
         const q = this.value.trim().toLowerCase();
 
@@ -309,10 +378,10 @@
         const titleHits = [];
         const matched = new Set();
 
-        data.nodes.forEach(n => {
+        visibleNodes.forEach(n => {
           const byTitle = n.title.toLowerCase().includes(q);
           const byTag   = n.tags.some(t => t.toLowerCase().includes(q));
-          if (byTitle) titleHits.push(n.id);
+          if (byTitle && n.type !== "tag") titleHits.push(n.id);
           if (byTitle || byTag) matched.add(n.id);
         });
 
@@ -324,15 +393,19 @@
           const tid = nodeId(d.target);
           return !matched.has(sid) && !matched.has(tid);
         });
+        linkSel.classed("highlighted", d => {
+          const sid = nodeId(d.source);
+          const tid = nodeId(d.target);
+          return matched.has(sid) && matched.has(tid);
+        });
 
         // Pan & zoom to a single exact title match
         if (titleHits.length === 1) {
-          const hit = data.nodes.find(n => n.id === titleHits[0]);
+          const hit = visibleNodes.find(n => n.id === titleHits[0]);
           if (hit && hit.x != null) focusNode(hit, W, H, svg, zoom);
         }
       });
 
-      // ── Resize ────────────────────────────────────────────────────────────
       window.addEventListener("resize", () => {
         W = window.innerWidth; H = window.innerHeight;
         svg.attr("width", W).attr("height", H);

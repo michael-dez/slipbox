@@ -1,6 +1,18 @@
 {
   "nodes": [
     {
+      "id": "15wl",
+      "title": "python trusted certs",
+      "date": "2026-04-22",
+      "tags": [
+        "python",
+        "certificates",
+        "ssl",
+        "environment-variables"
+      ],
+      "type": "note"
+    },
+    {
       "id": "3k2e",
       "title": "Dell Poweredge R620 Startup Options",
       "date": "2022-11-23",
@@ -11,7 +23,20 @@
         "os",
         "hardware",
         "TODO"
-      ]
+      ],
+      "type": "note"
+    },
+    {
+      "id": "5n8a",
+      "title": "endeavouros",
+      "date": "2026-04-22",
+      "tags": [
+        "linux",
+        "distro",
+        "arch-based",
+        "rolling-release"
+      ],
+      "type": "note"
     },
     {
       "id": "66tm",
@@ -21,7 +46,20 @@
         "golang",
         "go-cli",
         "cli"
-      ]
+      ],
+      "type": "note"
+    },
+    {
+      "id": "7vcd",
+      "title": "pacman",
+      "date": "2026-04-22",
+      "tags": [
+        "arch-linux",
+        "package-manager",
+        "linux",
+        "cli"
+      ],
+      "type": "note"
     },
     {
       "id": "90ws",
@@ -31,7 +69,20 @@
         "golang",
         "the-go-programming-language-book",
         "variables"
-      ]
+      ],
+      "type": "note"
+    },
+    {
+      "id": "di1r",
+      "title": "arch linux",
+      "date": "2026-04-22",
+      "tags": [
+        "linux",
+        "distro",
+        "rolling-release",
+        "arch"
+      ],
+      "type": "note"
     },
     {
       "id": "g7jj",
@@ -41,7 +92,8 @@
         "golang",
         "go-packages",
         "the-go-programming-language-book"
-      ]
+      ],
+      "type": "note"
     },
     {
       "id": "gqvt",
@@ -51,7 +103,8 @@
         "meta",
         "zettlekasten",
         "zk"
-      ]
+      ],
+      "type": "note"
     },
     {
       "id": "h0l9",
@@ -61,7 +114,8 @@
         "taskwarrior",
         "tasks",
         "blocking"
-      ]
+      ],
+      "type": "note"
     },
     {
       "id": "h366",
@@ -72,7 +126,20 @@
         "go-cli",
         "go-mod-init",
         "init"
-      ]
+      ],
+      "type": "note"
+    },
+    {
+      "id": "ibuy",
+      "title": "zk-nvim",
+      "date": "2026-04-21",
+      "tags": [
+        "meta",
+        "neovim",
+        "zk",
+        "zettlekasten"
+      ],
+      "type": "note"
     },
     {
       "id": "itys",
@@ -88,7 +155,8 @@
         "sourceslist",
         "repositories",
         "configure"
-      ]
+      ],
+      "type": "note"
     },
     {
       "id": "iy7j",
@@ -99,7 +167,8 @@
         "the-go-programming-language-book",
         "looping",
         "loops"
-      ]
+      ],
+      "type": "note"
     },
     {
       "id": "kcm0",
@@ -111,7 +180,8 @@
         "user-management",
         "permissions",
         "pveum"
-      ]
+      ],
+      "type": "note"
     },
     {
       "id": "m0bk",
@@ -122,13 +192,20 @@
         "os",
         "dell",
         "lifecycle-controller"
-      ]
+      ],
+      "type": "note"
     },
     {
       "id": "nuwc",
       "title": "Ansible",
       "date": "2023-05-23",
-      "tags": []
+      "tags": [
+        "ansible",
+        "automation",
+        "devops",
+        "configuration-management"
+      ],
+      "type": "note"
     },
     {
       "id": "o0rk",
@@ -138,7 +215,19 @@
         "bash",
         "sed",
         "find"
-      ]
+      ],
+      "type": "note"
+    },
+    {
+      "id": "p10p",
+      "title": "python",
+      "date": "2026-04-23",
+      "tags": [
+        "python",
+        "programming-language",
+        "prototyping"
+      ],
+      "type": "note"
     },
     {
       "id": "r85f",
@@ -148,7 +237,8 @@
         "rsync",
         "cli",
         "backup"
-      ]
+      ],
+      "type": "note"
     },
     {
       "id": "raxj",
@@ -159,7 +249,19 @@
         "the-go-programming-language-book",
         "functions",
         "declaration"
-      ]
+      ],
+      "type": "note"
+    },
+    {
+      "id": "rm6d",
+      "title": "zk",
+      "date": "2026-04-21",
+      "tags": [
+        "meta",
+        "zettlekasten",
+        "zk"
+      ],
+      "type": "note"
     },
     {
       "id": "wxsi",
@@ -169,13 +271,892 @@
         "golang",
         "the-go-programming-language-book",
         "comments"
-      ]
+      ],
+      "type": "note"
+    },
+    {
+      "id": "tag:TODO",
+      "title": "#TODO",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:ansible",
+      "title": "#ansible",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:apt",
+      "title": "#apt",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:arch",
+      "title": "#arch",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:arch-based",
+      "title": "#arch-based",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:arch-linux",
+      "title": "#arch-linux",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:automation",
+      "title": "#automation",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:backup",
+      "title": "#backup",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:bash",
+      "title": "#bash",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:blocking",
+      "title": "#blocking",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:certificates",
+      "title": "#certificates",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:cli",
+      "title": "#cli",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:comments",
+      "title": "#comments",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:configuration-management",
+      "title": "#configuration-management",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:configure",
+      "title": "#configure",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:debian",
+      "title": "#debian",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:declaration",
+      "title": "#declaration",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:dell",
+      "title": "#dell",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:devops",
+      "title": "#devops",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:distro",
+      "title": "#distro",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:environment-variables",
+      "title": "#environment-variables",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:find",
+      "title": "#find",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:functions",
+      "title": "#functions",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:go-cli",
+      "title": "#go-cli",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:go-mod-init",
+      "title": "#go-mod-init",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:go-packages",
+      "title": "#go-packages",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:golang",
+      "title": "#golang",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:hardware",
+      "title": "#hardware",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:homelab",
+      "title": "#homelab",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:init",
+      "title": "#init",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:lifecycle-controller",
+      "title": "#lifecycle-controller",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:linux",
+      "title": "#linux",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:looping",
+      "title": "#looping",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:loops",
+      "title": "#loops",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:meta",
+      "title": "#meta",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:neovim",
+      "title": "#neovim",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:os",
+      "title": "#os",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:package-manager",
+      "title": "#package-manager",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:permissions",
+      "title": "#permissions",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:poweredge",
+      "title": "#poweredge",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:programming-language",
+      "title": "#programming-language",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:prototyping",
+      "title": "#prototyping",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:proxmox",
+      "title": "#proxmox",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:pveum",
+      "title": "#pveum",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:python",
+      "title": "#python",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:repositories",
+      "title": "#repositories",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:rolling-release",
+      "title": "#rolling-release",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:rsync",
+      "title": "#rsync",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:sed",
+      "title": "#sed",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:sources",
+      "title": "#sources",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:sourceslist",
+      "title": "#sourceslist",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:ssl",
+      "title": "#ssl",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:tasks",
+      "title": "#tasks",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:taskwarrior",
+      "title": "#taskwarrior",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:terraform",
+      "title": "#terraform",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:the-go-programming-language-book",
+      "title": "#the-go-programming-language-book",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:ubuntu",
+      "title": "#ubuntu",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:user-management",
+      "title": "#user-management",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:variables",
+      "title": "#variables",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:zettlekasten",
+      "title": "#zettlekasten",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:zk",
+      "title": "#zk",
+      "date": "",
+      "tags": [],
+      "type": "tag"
     }
   ],
   "links": [
     {
       "source": "3k2e",
-      "target": "m0bk"
+      "target": "m0bk",
+      "type": "note"
+    },
+    {
+      "source": "15wl",
+      "target": "tag:python",
+      "type": "tag"
+    },
+    {
+      "source": "15wl",
+      "target": "tag:certificates",
+      "type": "tag"
+    },
+    {
+      "source": "15wl",
+      "target": "tag:ssl",
+      "type": "tag"
+    },
+    {
+      "source": "15wl",
+      "target": "tag:environment-variables",
+      "type": "tag"
+    },
+    {
+      "source": "3k2e",
+      "target": "tag:homelab",
+      "type": "tag"
+    },
+    {
+      "source": "3k2e",
+      "target": "tag:poweredge",
+      "type": "tag"
+    },
+    {
+      "source": "3k2e",
+      "target": "tag:dell",
+      "type": "tag"
+    },
+    {
+      "source": "3k2e",
+      "target": "tag:os",
+      "type": "tag"
+    },
+    {
+      "source": "3k2e",
+      "target": "tag:hardware",
+      "type": "tag"
+    },
+    {
+      "source": "3k2e",
+      "target": "tag:TODO",
+      "type": "tag"
+    },
+    {
+      "source": "5n8a",
+      "target": "tag:linux",
+      "type": "tag"
+    },
+    {
+      "source": "5n8a",
+      "target": "tag:distro",
+      "type": "tag"
+    },
+    {
+      "source": "5n8a",
+      "target": "tag:arch-based",
+      "type": "tag"
+    },
+    {
+      "source": "5n8a",
+      "target": "tag:rolling-release",
+      "type": "tag"
+    },
+    {
+      "source": "66tm",
+      "target": "tag:golang",
+      "type": "tag"
+    },
+    {
+      "source": "66tm",
+      "target": "tag:go-cli",
+      "type": "tag"
+    },
+    {
+      "source": "66tm",
+      "target": "tag:cli",
+      "type": "tag"
+    },
+    {
+      "source": "7vcd",
+      "target": "tag:arch-linux",
+      "type": "tag"
+    },
+    {
+      "source": "7vcd",
+      "target": "tag:package-manager",
+      "type": "tag"
+    },
+    {
+      "source": "7vcd",
+      "target": "tag:linux",
+      "type": "tag"
+    },
+    {
+      "source": "7vcd",
+      "target": "tag:cli",
+      "type": "tag"
+    },
+    {
+      "source": "90ws",
+      "target": "tag:golang",
+      "type": "tag"
+    },
+    {
+      "source": "90ws",
+      "target": "tag:the-go-programming-language-book",
+      "type": "tag"
+    },
+    {
+      "source": "90ws",
+      "target": "tag:variables",
+      "type": "tag"
+    },
+    {
+      "source": "di1r",
+      "target": "tag:linux",
+      "type": "tag"
+    },
+    {
+      "source": "di1r",
+      "target": "tag:distro",
+      "type": "tag"
+    },
+    {
+      "source": "di1r",
+      "target": "tag:rolling-release",
+      "type": "tag"
+    },
+    {
+      "source": "di1r",
+      "target": "tag:arch",
+      "type": "tag"
+    },
+    {
+      "source": "g7jj",
+      "target": "tag:golang",
+      "type": "tag"
+    },
+    {
+      "source": "g7jj",
+      "target": "tag:go-packages",
+      "type": "tag"
+    },
+    {
+      "source": "g7jj",
+      "target": "tag:the-go-programming-language-book",
+      "type": "tag"
+    },
+    {
+      "source": "gqvt",
+      "target": "tag:meta",
+      "type": "tag"
+    },
+    {
+      "source": "gqvt",
+      "target": "tag:zettlekasten",
+      "type": "tag"
+    },
+    {
+      "source": "gqvt",
+      "target": "tag:zk",
+      "type": "tag"
+    },
+    {
+      "source": "h0l9",
+      "target": "tag:taskwarrior",
+      "type": "tag"
+    },
+    {
+      "source": "h0l9",
+      "target": "tag:tasks",
+      "type": "tag"
+    },
+    {
+      "source": "h0l9",
+      "target": "tag:blocking",
+      "type": "tag"
+    },
+    {
+      "source": "h366",
+      "target": "tag:golang",
+      "type": "tag"
+    },
+    {
+      "source": "h366",
+      "target": "tag:go-cli",
+      "type": "tag"
+    },
+    {
+      "source": "h366",
+      "target": "tag:go-mod-init",
+      "type": "tag"
+    },
+    {
+      "source": "h366",
+      "target": "tag:init",
+      "type": "tag"
+    },
+    {
+      "source": "ibuy",
+      "target": "tag:meta",
+      "type": "tag"
+    },
+    {
+      "source": "ibuy",
+      "target": "tag:neovim",
+      "type": "tag"
+    },
+    {
+      "source": "ibuy",
+      "target": "tag:zk",
+      "type": "tag"
+    },
+    {
+      "source": "ibuy",
+      "target": "tag:zettlekasten",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:homelab",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:proxmox",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:debian",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:ubuntu",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:apt",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:sources",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:sourceslist",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:repositories",
+      "type": "tag"
+    },
+    {
+      "source": "itys",
+      "target": "tag:configure",
+      "type": "tag"
+    },
+    {
+      "source": "iy7j",
+      "target": "tag:golang",
+      "type": "tag"
+    },
+    {
+      "source": "iy7j",
+      "target": "tag:the-go-programming-language-book",
+      "type": "tag"
+    },
+    {
+      "source": "iy7j",
+      "target": "tag:looping",
+      "type": "tag"
+    },
+    {
+      "source": "iy7j",
+      "target": "tag:loops",
+      "type": "tag"
+    },
+    {
+      "source": "kcm0",
+      "target": "tag:proxmox",
+      "type": "tag"
+    },
+    {
+      "source": "kcm0",
+      "target": "tag:terraform",
+      "type": "tag"
+    },
+    {
+      "source": "kcm0",
+      "target": "tag:user-management",
+      "type": "tag"
+    },
+    {
+      "source": "kcm0",
+      "target": "tag:permissions",
+      "type": "tag"
+    },
+    {
+      "source": "kcm0",
+      "target": "tag:pveum",
+      "type": "tag"
+    },
+    {
+      "source": "m0bk",
+      "target": "tag:poweredge",
+      "type": "tag"
+    },
+    {
+      "source": "m0bk",
+      "target": "tag:os",
+      "type": "tag"
+    },
+    {
+      "source": "m0bk",
+      "target": "tag:dell",
+      "type": "tag"
+    },
+    {
+      "source": "m0bk",
+      "target": "tag:lifecycle-controller",
+      "type": "tag"
+    },
+    {
+      "source": "nuwc",
+      "target": "tag:ansible",
+      "type": "tag"
+    },
+    {
+      "source": "nuwc",
+      "target": "tag:automation",
+      "type": "tag"
+    },
+    {
+      "source": "nuwc",
+      "target": "tag:devops",
+      "type": "tag"
+    },
+    {
+      "source": "nuwc",
+      "target": "tag:configuration-management",
+      "type": "tag"
+    },
+    {
+      "source": "o0rk",
+      "target": "tag:bash",
+      "type": "tag"
+    },
+    {
+      "source": "o0rk",
+      "target": "tag:sed",
+      "type": "tag"
+    },
+    {
+      "source": "o0rk",
+      "target": "tag:find",
+      "type": "tag"
+    },
+    {
+      "source": "p10p",
+      "target": "tag:python",
+      "type": "tag"
+    },
+    {
+      "source": "p10p",
+      "target": "tag:programming-language",
+      "type": "tag"
+    },
+    {
+      "source": "p10p",
+      "target": "tag:prototyping",
+      "type": "tag"
+    },
+    {
+      "source": "r85f",
+      "target": "tag:rsync",
+      "type": "tag"
+    },
+    {
+      "source": "r85f",
+      "target": "tag:cli",
+      "type": "tag"
+    },
+    {
+      "source": "r85f",
+      "target": "tag:backup",
+      "type": "tag"
+    },
+    {
+      "source": "raxj",
+      "target": "tag:golang",
+      "type": "tag"
+    },
+    {
+      "source": "raxj",
+      "target": "tag:the-go-programming-language-book",
+      "type": "tag"
+    },
+    {
+      "source": "raxj",
+      "target": "tag:functions",
+      "type": "tag"
+    },
+    {
+      "source": "raxj",
+      "target": "tag:declaration",
+      "type": "tag"
+    },
+    {
+      "source": "rm6d",
+      "target": "tag:meta",
+      "type": "tag"
+    },
+    {
+      "source": "rm6d",
+      "target": "tag:zettlekasten",
+      "type": "tag"
+    },
+    {
+      "source": "rm6d",
+      "target": "tag:zk",
+      "type": "tag"
+    },
+    {
+      "source": "wxsi",
+      "target": "tag:golang",
+      "type": "tag"
+    },
+    {
+      "source": "wxsi",
+      "target": "tag:the-go-programming-language-book",
+      "type": "tag"
+    },
+    {
+      "source": "wxsi",
+      "target": "tag:comments",
+      "type": "tag"
     }
   ]
 }

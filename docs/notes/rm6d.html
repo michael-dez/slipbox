@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How I Take Notes</title>
+  <title>zk</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -94,22 +94,28 @@
 <body>
   <div class="container">
     <nav><a href="../index.html">← back to graph</a></nav>
-    <h1>How I Take Notes</h1>
-    <div class="meta">2023-05-07</div>
+    <h1>zk</h1>
+    <div class="meta">2026-04-21</div>
     <div class="tags"><span>meta</span><span>zettlekasten</span><span>zk</span></div>
     <hr />
     <div class="content">
-<p>The goal of my note taking process is to make my notes useful, easy to find, and quickly written. My method is loosely based on the Zettlekasten Method.</p>
-<h2>Tools</h2>
-<ul>
-<li>neovim + <a href="ibuy">zk-nvim</a></li>
-<li><a href="rm6d">zk</a></li>
-<li>git</li>
-</ul>
-<h2>Process</h2>
-<p>I use short automatically generated filenames and search for existing notes using their front matter (title, tags, date). I also use a default template for new notes. The <code>zk-nvim</code> neovim plugin enables completion for wiki style links to other notes and automatically converts them to markdown style links.</p>
-<h2>Style</h2>
-<p>I try to loosely follow the <a href="https://kubernetes.io/docs/contribute/style/style-guide/#markdown-elements">Kubernetes Documentation Style Guide</a>.</p>
+<p><code>zk</code> is an executable that indexes markdown notes based on yaml frontmatter. Read the <a href="https://github.com/mickael-menu/zk">zk docs</a> to learn about configuration.</p>
+<h2>Commands</h2>
+<p>Initialize a <code>zk</code> directory</p>
+<pre><code class="language-bash">zk init
+</code></pre>
+<p>Create a new note</p>
+<pre><code class="language-bash"># aliased to zn
+zk new
+</code></pre>
+<p>Index notes</p>
+<pre><code class="language-bash"># aliased to zi
+zk index
+</code></pre>
+<p>Find and edit a note with fuzzy finder</p>
+<pre><code class="language-bash"># aliased to ze
+zk edit -i
+</code></pre>
     </div>
   </div>
 </body>

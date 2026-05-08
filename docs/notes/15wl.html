@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How I Take Notes</title>
+  <title>python trusted certs</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -94,22 +94,14 @@
 <body>
   <div class="container">
     <nav><a href="../index.html">← back to graph</a></nav>
-    <h1>How I Take Notes</h1>
-    <div class="meta">2023-05-07</div>
-    <div class="tags"><span>meta</span><span>zettlekasten</span><span>zk</span></div>
+    <h1>python trusted certs</h1>
+    <div class="meta">2026-04-22</div>
+    <div class="tags"><span>python</span><span>certificates</span><span>ssl</span><span>environment-variables</span></div>
     <hr />
     <div class="content">
-<p>The goal of my note taking process is to make my notes useful, easy to find, and quickly written. My method is loosely based on the Zettlekasten Method.</p>
-<h2>Tools</h2>
-<ul>
-<li>neovim + <a href="ibuy">zk-nvim</a></li>
-<li><a href="rm6d">zk</a></li>
-<li>git</li>
-</ul>
-<h2>Process</h2>
-<p>I use short automatically generated filenames and search for existing notes using their front matter (title, tags, date). I also use a default template for new notes. The <code>zk-nvim</code> neovim plugin enables completion for wiki style links to other notes and automatically converts them to markdown style links.</p>
-<h2>Style</h2>
-<p>I try to loosely follow the <a href="https://kubernetes.io/docs/contribute/style/style-guide/#markdown-elements">Kubernetes Documentation Style Guide</a>.</p>
+<p>This environment variable tells <a href="p10p">python</a> where to find trusted certificates.</p>
+<pre><code>export REQUESTS_CA_BUNDLE=/path/to/cert.pem
+</code></pre>
     </div>
   </div>
 </body>
