@@ -7,5 +7,5 @@ tags:
     - rolling-release
     - arch
 ---
-Linux distribution that notably uses pacman as its package manager. It is the underlying distribution for [endeavouros](5n8a). It is a rolling release distribution.
+Linux distribution that notably uses pacman as its package manager. It is the underlying distribution for [endeavouros](5n8a.md). It is a rolling release distribution.
 

@@ -7,6 +7,6 @@ tags:
     - linux
     - cli
 ---
-Most notably known as the [arch linux](di1r) package manager. Also used by [endeavouros](5n8a).
+Most notably known as the [arch linux](di1r.md) package manager. Also used by [endeavouros](5n8a.md).
 
 

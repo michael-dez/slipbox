@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>endeavouros</title>
+  <title>tcpdump</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -94,12 +94,17 @@
 <body>
   <div class="container">
     <nav><a href="../index.html">← back to graph</a></nav>
-    <h1>endeavouros</h1>
-    <div class="meta">2026-04-22</div>
-    <div class="tags"><span>linux</span><span>distro</span><span>arch-based</span><span>rolling-release</span></div>
+    <h1>tcpdump</h1>
+    <div class="meta">2026-05-12</div>
+    <div class="tags"><span>cli</span><span>troubleshooting</span><span>networking</span></div>
     <hr />
     <div class="content">
-<p>Linux distribution based on <a href="di1r.html">arch linux</a>. It is a rolling release distribution. It uses <a href="7vcd.html">pacman</a> as its package manager.</p>
+<p>Captures packet info. Notable options are <code>-i</code> for interface and <code>port</code> which doesn't use a hyphen but works like an option in that it specifies the port to capture on and whether to listen for tcp and/or udp.</p>
+<pre><code># writes packets coming into port 443 over tcp to pcap file
+tcpdump -i eth0 port 443/tcp \
+-w packetes.pcap \
+-Q in
+</code></pre>
     </div>
   </div>
 </body>

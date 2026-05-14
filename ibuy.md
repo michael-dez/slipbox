@@ -7,7 +7,7 @@ tags:
     - zk
     - zettlekasten
 ---
-zk-nvim is a neovim plugin that allows me to map [zk](j83x) commands to neovim so I can stay in my editor.
+zk-nvim is a neovim plugin that allows me to map [zk](rm6d.md) commands to neovim so I can stay in my editor.
 
 Opens a notes picker for active buffers. (Still needs mapped)
 ```

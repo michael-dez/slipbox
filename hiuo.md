@@ -6,9 +6,9 @@ tags:
     - info
     - help
 ---
-Keybinds are based on emacs... Per key binds can be set with a `texinfo` config at `~/.infokey` or `${XDG_CONFIG_HOME}/texinfo/infokey`. Another option is using `info --vi-keys` or set vi-keys as default in the [readline](l83n) config, `.inputrc`. Consider using a texinfo config because both default and vi-keys have some awkward defaults.
+Keybinds are based on emacs... Per key binds can be set with a `texinfo` config at `~/.infokey` or `${XDG_CONFIG_HOME}/texinfo/infokey`. Another option is using `info --vi-keys` or set vi-keys as default in the [readline](l83n.md) config, `.inputrc`. Consider using a texinfo config because both default and vi-keys have some awkward defaults.
 
-An info page node is basically a single [man](5gfy) page that can be linked with other nodes making a tree.
+An info page node is basically a single [man](5gfy.md) page that can be linked with other nodes making a tree.
 
 The `info` command with no arguments puts you at the top of the tree.
 

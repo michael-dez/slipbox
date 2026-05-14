@@ -105,6 +105,13 @@
     }
     .link.tag-link.highlighted { stroke: rgba(220, 180, 100, 0.55); }
 
+    .particle {
+      fill: rgba(230, 235, 255, 0.95);
+      pointer-events: none;
+    }
+    .particle.dimmed      { visibility: hidden; }
+    .particle.highlighted { fill: #fff; }
+
     /* ── Tooltip ── */
     #tooltip {
       position: absolute;
@@ -202,19 +209,6 @@
       svg.call(zoom);
       const g = svg.append("g");
 
-      // viewBox: x goes 0→8, y goes -4→4; tip of triangle at (8,0) = refX
-      svg.append("defs").append("marker")
-        .attr("id", "arrow")
-        .attr("viewBox", "0 -4 8 8")
-        .attr("refX", 8)
-        .attr("refY", 0)
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
-        .attr("orient", "auto")
-        .append("path")
-        .attr("d", "M0,-4L8,0L0,4Z")
-        .attr("fill", "rgba(255,255,255,0.35)");
-
       // Tag edges get a longer, weaker spring so high-degree tag hubs don't
       // collapse the whole graph onto themselves.
       const sim = d3.forceSimulation()
@@ -227,9 +221,14 @@
         .force("collide", d3.forceCollide(NOTE_R + 6));
 
       const linkLayer = g.append("g");
+      const particleLayer = g.append("g");
       const nodeLayer = g.append("g");
       let linkSel = linkLayer.selectAll("line");
+      let particleSel = particleLayer.selectAll("circle.particle");
       let nodeSel = nodeLayer.selectAll("g.node");
+
+      // Pixels per second a particle travels along its edge. Direction = source → target.
+      const PARTICLE_SPEED = 55;
 
       let visibleNodes = [];
       let visibleLinks = [];
@@ -272,8 +271,20 @@
         linkSel = linkLayer.selectAll("line")
           .data(visibleLinks, d => `${nodeId(d.source)}->${nodeId(d.target)}`)
           .join("line")
-          .attr("class", d => "link" + (d.type === "tag" ? " tag-link" : ""))
-          .attr("marker-end", d => d.type === "tag" ? null : "url(#arrow)");
+          .attr("class", d => "link" + (d.type === "tag" ? " tag-link" : ""));
+
+        // Only directed note→note edges get a traveling particle. Tag edges
+        // are undirected membership, so they stay particle-less.
+        const particleLinks = visibleLinks.filter(l => l.type !== "tag");
+        particleLinks.forEach(l => {
+          // Stable random phase so particles don't all start in sync.
+          if (l._phase == null) l._phase = Math.random();
+        });
+        particleSel = particleLayer.selectAll("circle.particle")
+          .data(particleLinks, d => `${nodeId(d.source)}->${nodeId(d.target)}`)
+          .join(enter => enter.append("circle")
+            .attr("class", "particle")
+            .attr("r", 2.2));
 
         nodeSel = nodeLayer.selectAll("g.node")
           .data(visibleNodes, d => d.id)
@@ -345,8 +356,7 @@
         sim.alpha(0.6).restart();
       }
 
-      // Shorten each end of a link to the node boundary so the arrow is
-      // visible and doesn't overlap the circle.
+      // Trim each link to the node boundary so it doesn't overlap the circle.
       sim.on("tick", () => {
         linkSel
           .attr("x1", d => d.source.x + unitVec(d).ux * radiusOf(d.source))
@@ -356,6 +366,34 @@
 
         nodeSel.attr("transform", d => `translate(${d.x},${d.y})`);
       });
+
+      // Independent rAF loop so particles keep flowing even after the
+      // force simulation has cooled and stops ticking.
+      let lastFrame = performance.now();
+      function animateParticles(now) {
+        const dt = (now - lastFrame) / 1000;
+        lastFrame = now;
+        particleSel.each(function (d) {
+          const sx = d.source.x, sy = d.source.y;
+          const tx = d.target.x, ty = d.target.y;
+          const dx = tx - sx, dy = ty - sy;
+          const len = Math.hypot(dx, dy) || 1;
+          const sr = radiusOf(d.source), tr = radiusOf(d.target);
+          // Phase advances at fixed pixel speed → consistent flow regardless of edge length.
+          d._phase = (d._phase + (PARTICLE_SPEED * dt) / len) % 1;
+          // Travel from source boundary to target boundary.
+          const u = sr / len + d._phase * Math.max(0, 1 - (sr + tr) / len);
+          const x = sx + u * dx;
+          const y = sy + u * dy;
+          // Soft fade-in/out so particles don't pop at the endpoints.
+          const fade = Math.min(1, d._phase * 8, (1 - d._phase) * 8);
+          this.setAttribute("cx", x);
+          this.setAttribute("cy", y);
+          this.setAttribute("opacity", fade);
+        });
+        requestAnimationFrame(animateParticles);
+      }
+      requestAnimationFrame(animateParticles);
 
       update();
 
@@ -372,6 +410,7 @@
         if (!q) {
           nodeSel.classed("dimmed", false).classed("highlighted", false);
           linkSel.classed("dimmed", false).classed("highlighted", false);
+          particleSel.classed("dimmed", false).classed("highlighted", false);
           return;
         }
 
@@ -394,6 +433,17 @@
           return !matched.has(sid) && !matched.has(tid);
         });
         linkSel.classed("highlighted", d => {
+          const sid = nodeId(d.source);
+          const tid = nodeId(d.target);
+          return matched.has(sid) && matched.has(tid);
+        });
+
+        particleSel.classed("dimmed", d => {
+          const sid = nodeId(d.source);
+          const tid = nodeId(d.target);
+          return !matched.has(sid) && !matched.has(tid);
+        });
+        particleSel.classed("highlighted", d => {
           const sid = nodeId(d.source);
           const tid = nodeId(d.target);
           return matched.has(sid) && matched.has(tid);

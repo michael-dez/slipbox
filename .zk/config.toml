@@ -18,7 +18,7 @@
 #filename = "{{id}}"
 
 # The file extension used for the notes.
-#extension = "md"
+extension = "md"
 
 # Template used to generate a note's content.
 # If not an absolute path, it is relative to .zk/templates/
@@ -87,7 +87,7 @@ template = "default.md"
 #link-encode-path = true
 # Indicates whether a link's path file extension will be removed.
 # Defaults to true.
-#link-drop-extension = true
+link-drop-extension = false
 
 # Enable support for #hashtags.
 hashtags = true

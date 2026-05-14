@@ -1,6 +1,15 @@
 {
   "nodes": [
     {
+      "id": "0pcr",
+      "title": "age",
+      "date": "2026-05-07",
+      "tags": [
+        "encryption"
+      ],
+      "type": "note"
+    },
+    {
       "id": "15wl",
       "title": "python trusted certs",
       "date": "2026-04-22",
@@ -23,6 +32,26 @@
         "os",
         "hardware",
         "TODO"
+      ],
+      "type": "note"
+    },
+    {
+      "id": "57x5",
+      "title": "yay",
+      "date": "2026-05-07",
+      "tags": [
+        "package-manager",
+        "arch"
+      ],
+      "type": "note"
+    },
+    {
+      "id": "5gfy",
+      "title": "man",
+      "date": "2026-05-13",
+      "tags": [
+        "help",
+        "posix"
       ],
       "type": "note"
     },
@@ -69,6 +98,17 @@
         "golang",
         "the-go-programming-language-book",
         "variables"
+      ],
+      "type": "note"
+    },
+    {
+      "id": "dh56",
+      "title": "tcpdump",
+      "date": "2026-05-12",
+      "tags": [
+        "cli",
+        "troubleshooting",
+        "networking"
       ],
       "type": "note"
     },
@@ -130,6 +170,17 @@
       "type": "note"
     },
     {
+      "id": "hiuo",
+      "title": "Navigate info pages",
+      "date": "2026-05-13",
+      "tags": [
+        "shell",
+        "info",
+        "help"
+      ],
+      "type": "note"
+    },
+    {
       "id": "ibuy",
       "title": "zk-nvim",
       "date": "2026-04-21",
@@ -184,6 +235,18 @@
       "type": "note"
     },
     {
+      "id": "l83n",
+      "title": "readline",
+      "date": "2026-05-13",
+      "tags": [
+        "gnu",
+        "bash",
+        "interactive",
+        "text editing"
+      ],
+      "type": "note"
+    },
+    {
       "id": "m0bk",
       "title": "Dell Poweredge Lifecycle Controller",
       "date": "2022-11-23",
@@ -192,6 +255,37 @@
         "os",
         "dell",
         "lifecycle-controller"
+      ],
+      "type": "note"
+    },
+    {
+      "id": "mhjj",
+      "title": "Get pacman package info",
+      "date": "2026-05-07",
+      "tags": [
+        "pacman",
+        "dependencies"
+      ],
+      "type": "note"
+    },
+    {
+      "id": "mszq",
+      "title": "Securely set a shell variable interactively",
+      "date": "2026-05-13",
+      "tags": [
+        "shell",
+        "interactive"
+      ],
+      "type": "note"
+    },
+    {
+      "id": "mw2b",
+      "title": "info",
+      "date": "2026-05-13",
+      "tags": [
+        "shell",
+        "gnu",
+        "help"
       ],
       "type": "note"
     },
@@ -271,6 +365,16 @@
         "golang",
         "the-go-programming-language-book",
         "comments"
+      ],
+      "type": "note"
+    },
+    {
+      "id": "xu1f",
+      "title": "tldr",
+      "date": "2026-05-13",
+      "tags": [
+        "help",
+        "shell"
       ],
       "type": "note"
     },
@@ -401,6 +505,13 @@
       "type": "tag"
     },
     {
+      "id": "tag:dependencies",
+      "title": "#dependencies",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
       "id": "tag:devops",
       "title": "#devops",
       "date": "",
@@ -410,6 +521,13 @@
     {
       "id": "tag:distro",
       "title": "#distro",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:encryption",
+      "title": "#encryption",
       "date": "",
       "tags": [],
       "type": "tag"
@@ -431,6 +549,13 @@
     {
       "id": "tag:functions",
       "title": "#functions",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:gnu",
+      "title": "#gnu",
       "date": "",
       "tags": [],
       "type": "tag"
@@ -471,6 +596,13 @@
       "type": "tag"
     },
     {
+      "id": "tag:help",
+      "title": "#help",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
       "id": "tag:homelab",
       "title": "#homelab",
       "date": "",
@@ -478,8 +610,22 @@
       "type": "tag"
     },
     {
+      "id": "tag:info",
+      "title": "#info",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
       "id": "tag:init",
       "title": "#init",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:interactive",
+      "title": "#interactive",
       "date": "",
       "tags": [],
       "type": "tag"
@@ -527,6 +673,13 @@
       "type": "tag"
     },
     {
+      "id": "tag:networking",
+      "title": "#networking",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
       "id": "tag:os",
       "title": "#os",
       "date": "",
@@ -541,8 +694,22 @@
       "type": "tag"
     },
     {
+      "id": "tag:pacman",
+      "title": "#pacman",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
       "id": "tag:permissions",
       "title": "#permissions",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:posix",
+      "title": "#posix",
       "date": "",
       "tags": [],
       "type": "tag"
@@ -618,6 +785,13 @@
       "type": "tag"
     },
     {
+      "id": "tag:shell",
+      "title": "#shell",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
       "id": "tag:sources",
       "title": "#sources",
       "date": "",
@@ -660,8 +834,22 @@
       "type": "tag"
     },
     {
+      "id": "tag:text editing",
+      "title": "#text editing",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
       "id": "tag:the-go-programming-language-book",
       "title": "#the-go-programming-language-book",
+      "date": "",
+      "tags": [],
+      "type": "tag"
+    },
+    {
+      "id": "tag:troubleshooting",
+      "title": "#troubleshooting",
       "date": "",
       "tags": [],
       "type": "tag"
@@ -704,9 +892,99 @@
   ],
   "links": [
     {
+      "source": "15wl",
+      "target": "p10p",
+      "type": "note"
+    },
+    {
       "source": "3k2e",
       "target": "m0bk",
       "type": "note"
+    },
+    {
+      "source": "57x5",
+      "target": "7vcd",
+      "type": "note"
+    },
+    {
+      "source": "5gfy",
+      "target": "xu1f",
+      "type": "note"
+    },
+    {
+      "source": "5n8a",
+      "target": "di1r",
+      "type": "note"
+    },
+    {
+      "source": "5n8a",
+      "target": "7vcd",
+      "type": "note"
+    },
+    {
+      "source": "7vcd",
+      "target": "di1r",
+      "type": "note"
+    },
+    {
+      "source": "7vcd",
+      "target": "5n8a",
+      "type": "note"
+    },
+    {
+      "source": "di1r",
+      "target": "5n8a",
+      "type": "note"
+    },
+    {
+      "source": "gqvt",
+      "target": "ibuy",
+      "type": "note"
+    },
+    {
+      "source": "gqvt",
+      "target": "rm6d",
+      "type": "note"
+    },
+    {
+      "source": "hiuo",
+      "target": "l83n",
+      "type": "note"
+    },
+    {
+      "source": "hiuo",
+      "target": "5gfy",
+      "type": "note"
+    },
+    {
+      "source": "ibuy",
+      "target": "rm6d",
+      "type": "note"
+    },
+    {
+      "source": "l83n",
+      "target": "5gfy",
+      "type": "note"
+    },
+    {
+      "source": "mhjj",
+      "target": "7vcd",
+      "type": "note"
+    },
+    {
+      "source": "mw2b",
+      "target": "5gfy",
+      "type": "note"
+    },
+    {
+      "source": "mw2b",
+      "target": "hiuo",
+      "type": "note"
+    },
+    {
+      "source": "0pcr",
+      "target": "tag:encryption",
+      "type": "tag"
     },
     {
       "source": "15wl",
@@ -756,6 +1034,26 @@
     {
       "source": "3k2e",
       "target": "tag:TODO",
+      "type": "tag"
+    },
+    {
+      "source": "57x5",
+      "target": "tag:package-manager",
+      "type": "tag"
+    },
+    {
+      "source": "57x5",
+      "target": "tag:arch",
+      "type": "tag"
+    },
+    {
+      "source": "5gfy",
+      "target": "tag:help",
+      "type": "tag"
+    },
+    {
+      "source": "5gfy",
+      "target": "tag:posix",
       "type": "tag"
     },
     {
@@ -826,6 +1124,21 @@
     {
       "source": "90ws",
       "target": "tag:variables",
+      "type": "tag"
+    },
+    {
+      "source": "dh56",
+      "target": "tag:cli",
+      "type": "tag"
+    },
+    {
+      "source": "dh56",
+      "target": "tag:troubleshooting",
+      "type": "tag"
+    },
+    {
+      "source": "dh56",
+      "target": "tag:networking",
       "type": "tag"
     },
     {
@@ -911,6 +1224,21 @@
     {
       "source": "h366",
       "target": "tag:init",
+      "type": "tag"
+    },
+    {
+      "source": "hiuo",
+      "target": "tag:shell",
+      "type": "tag"
+    },
+    {
+      "source": "hiuo",
+      "target": "tag:info",
+      "type": "tag"
+    },
+    {
+      "source": "hiuo",
+      "target": "tag:help",
       "type": "tag"
     },
     {
@@ -1024,6 +1352,26 @@
       "type": "tag"
     },
     {
+      "source": "l83n",
+      "target": "tag:gnu",
+      "type": "tag"
+    },
+    {
+      "source": "l83n",
+      "target": "tag:bash",
+      "type": "tag"
+    },
+    {
+      "source": "l83n",
+      "target": "tag:interactive",
+      "type": "tag"
+    },
+    {
+      "source": "l83n",
+      "target": "tag:text editing",
+      "type": "tag"
+    },
+    {
       "source": "m0bk",
       "target": "tag:poweredge",
       "type": "tag"
@@ -1041,6 +1389,41 @@
     {
       "source": "m0bk",
       "target": "tag:lifecycle-controller",
+      "type": "tag"
+    },
+    {
+      "source": "mhjj",
+      "target": "tag:pacman",
+      "type": "tag"
+    },
+    {
+      "source": "mhjj",
+      "target": "tag:dependencies",
+      "type": "tag"
+    },
+    {
+      "source": "mszq",
+      "target": "tag:shell",
+      "type": "tag"
+    },
+    {
+      "source": "mszq",
+      "target": "tag:interactive",
+      "type": "tag"
+    },
+    {
+      "source": "mw2b",
+      "target": "tag:shell",
+      "type": "tag"
+    },
+    {
+      "source": "mw2b",
+      "target": "tag:gnu",
+      "type": "tag"
+    },
+    {
+      "source": "mw2b",
+      "target": "tag:help",
       "type": "tag"
     },
     {
@@ -1156,6 +1539,16 @@
     {
       "source": "wxsi",
       "target": "tag:comments",
+      "type": "tag"
+    },
+    {
+      "source": "xu1f",
+      "target": "tag:help",
+      "type": "tag"
+    },
+    {
+      "source": "xu1f",
+      "target": "tag:shell",
       "type": "tag"
     }
   ]

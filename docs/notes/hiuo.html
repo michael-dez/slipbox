@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>endeavouros</title>
+  <title>Navigate info pages</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -94,12 +94,30 @@
 <body>
   <div class="container">
     <nav><a href="../index.html">← back to graph</a></nav>
-    <h1>endeavouros</h1>
-    <div class="meta">2026-04-22</div>
-    <div class="tags"><span>linux</span><span>distro</span><span>arch-based</span><span>rolling-release</span></div>
+    <h1>Navigate info pages</h1>
+    <div class="meta">2026-05-13</div>
+    <div class="tags"><span>shell</span><span>info</span><span>help</span></div>
     <hr />
     <div class="content">
-<p>Linux distribution based on <a href="di1r.html">arch linux</a>. It is a rolling release distribution. It uses <a href="7vcd.html">pacman</a> as its package manager.</p>
+<p>Keybinds are based on emacs... Per key binds can be set with a <code>texinfo</code> config at <code>~/.infokey</code> or <code>${XDG_CONFIG_HOME}/texinfo/infokey</code>. Another option is using <code>info --vi-keys</code> or set vi-keys as default in the <a href="l83n.html">readline</a> config, <code>.inputrc</code>. Consider using a texinfo config because both default and vi-keys have some awkward defaults.</p>
+<p>An info page node is basically a single <a href="5gfy.html">man</a> page that can be linked with other nodes making a tree.</p>
+<p>The <code>info</code> command with no arguments puts you at the top of the tree.</p>
+<p><strong>help</strong> <code>H</code>elp shows some of the most useful keybinds</p>
+<h2>Navigate between nodes</h2>
+<p>Links to nodes are underlined and can be traversed with <code>Enter/Return</code>. Node navigation allows travel in the following "directions":</p>
+<p><strong>previous</strong> <code>p</code></p>
+<p><strong>next</strong> <code>n</code></p>
+<p><strong>up</strong> <code>u</code></p>
+<p><strong>down</strong> <code>m</code> view subnodes of the current node</p>
+<h2>Navigate within a node</h2>
+<p>The staples<br />
+- <code>&lt;C-u&gt;</code><br />
+- <code>&lt;C-d&gt;</code><br />
+- <code>gg</code><br />
+- <code>G</code></p>
+<p>What else could one need?</p>
+<h2>Reference</h2>
+<p><a href="https://github.com/michael-dez/dotfiles/blob/main/texinfo/infokey">texinfo config</a></p>
     </div>
   </div>
 </body>

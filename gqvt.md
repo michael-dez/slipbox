@@ -9,8 +9,8 @@ tags:
 The goal of my note taking process is to make my notes useful, easy to find, and quickly written. My method is loosely based on the Zettlekasten Method.
 
 ## Tools
-- neovim + [zk-nvim](ibuy)
-- [zk](rm6d)
+- neovim + [zk-nvim](ibuy.md)
+- [zk](rm6d.md)
 - git
 
 ## Process
