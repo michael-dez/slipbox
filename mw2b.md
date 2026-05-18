@@ -6,7 +6,7 @@ tags:
     - gnu
     - help
 ---
-A documentation reader that came after [man pages](5gfy.md). More comprehensive when available but more complicated to [navigate](hiuo.md). 
+A documentation reader that came after [man pages](5gfy.md). More comprehensive when available but more complicated to [navigate](hiuo.md). Modern apps prefer some combination of online documentation, more thorough `--help`, and man pages.
 
 ## Info vs texinfo vs tex
  **Texinfo** - Source language `info` docs are written in, extension `.texi`).
